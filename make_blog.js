@@ -2,11 +2,9 @@
 var fs = require('fs');
 
 fs.readFile('./blog.md', 'utf8', function (e, d) {
-  if (e) {
-    return console.log(e);
-  }
+  if (e) { return console.log(e); }
   fs.writeFile('blog.json', JSON.stringify({
-    title: "plutonium.io's First Post: An Introduction",
+    title: "plutonium.io's First Post",
     slug: "hello-world",
     text: d,
   }));
