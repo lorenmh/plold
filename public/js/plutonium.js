@@ -252,7 +252,7 @@ angular.module('plutonium').controller('PlCtrl', [
       $scope.location = $state.href(toState.name, toParams);
       if (!$scope.location) {
         $scope.location = window.location.href.toString().replace(
-                            window.location.origin + '/', ''
+                            window.location.origin, ''
                           );
       }
     });

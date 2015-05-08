@@ -102,7 +102,7 @@
       text-align: center;
       margin: auto auto -1px auto;
       text-decoration: none;
-      padding: 10px 40px;
+      padding: 8px 0;
       border: 1px solid rgb(40, 40, 50);
       background-color: rgb(40, 40, 50);
       transition: color .5s ease, border .4s ease, background-color .4s ease;
@@ -218,6 +218,24 @@
       text-align: center;
       color: rgb(226, 240, 165);
       font-weight: 100;
+    }
+
+    @media (max-width: 460px) {
+      #menu li a {
+        width: auto;
+      }
+
+      li.projects {
+        margin-right: 2%;
+      }
+
+      li.blog {
+        margin-left: 2%;
+      }
+
+      #menu li {
+        width: 48%;
+      }
     }
   </style>
 
