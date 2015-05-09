@@ -23,21 +23,16 @@
 }
 
 .pl-hexagon {
-  width: 600;
+  max-width: 600;
   height: 600;
   display: block;
   margin: auto;
   position: relative;
-  left: 50%;
-  margin-left: -300px;
 }
 
 .pl-hexagon svg {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  margin-left: -300px;
-  margin-top: -300px;
+  display: block;
+  margin: auto;
 }
 
 .pl-nav {
@@ -207,6 +202,18 @@ p > code {
   text-align: center;
   color: rgb(226, 240, 165);
   font-weight: 100;
+}
+
+@media (max-width: 500px) {
+  .pl-hexagon { height: 500px;}
+}
+
+@media (max-width: 400px) {
+  .pl-hexagon { height: 400px;}
+}
+
+@media (max-width: 300px) {
+  .pl-hexagon { height: 300px;}
 }
 
 @media (max-width: 460px) {

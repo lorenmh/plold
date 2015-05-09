@@ -17,9 +17,18 @@ var drawHexagon = (function $drawHexagon() {
   var drawn = false;
   var svg;
   return function(el) {
+    var w;
+
+    w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+
     if (!drawn) {
-      var v = shapes.View({ target: el });
-      shapeArray({ view: v, radius: 60, pad: -35, range: [3, 6]  });
+      if ( w < 600 ) {
+        var v = shapes.View({ target: el, mouseoverEverywhere: true });
+        shapeArray({ view: v, radius: 100, pad: -60, range: [3, 6]  });
+      } else {
+        var v = shapes.View({ target: el });
+        shapeArray({ view: v, radius: 60, pad: -35, range: [3, 6]  });
+      }
       svg = el.children[0];
       drawn = true;
     } else {

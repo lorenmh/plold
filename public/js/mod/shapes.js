@@ -177,6 +177,7 @@ function View(params) {
   view = {};
 
   view.target = params.target || document.body;
+  view.mouseoverEverywhere = !!params.mouseoverEverywhere;
 
   view.bounds = view.target.getBoundingClientRect();
   
@@ -326,7 +327,8 @@ function View(params) {
           'stroke-opacity': shape.strokeOpacity
         })
       .on('mouseover', function() {
-        if( shape.x > (0.2 * view.bounds.width) &&
+        if( !view.mouseoverEverywhere &&
+            shape.x > (0.2 * view.bounds.width) &&
             shape.x < (0.8 * view.bounds.width) &&
             shape.y > (0.2 * view.bounds.height) &&
             shape.y < (0.8 * view.bounds.height)) {
