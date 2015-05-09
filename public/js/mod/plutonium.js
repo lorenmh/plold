@@ -2,8 +2,6 @@
 
 var angular = angular || {};
 
-
-
 angular.module('plutonium', ['ui.router', 'ngResource']);
 angular.module('plutonium');
 
@@ -201,14 +199,11 @@ angular.module('plutonium').factory('models', [
   function($resource) {
     var models = {};
 
-    models.Blog = 
-      $resource('http://127.0.0.1:3300/api/blogs/:slug');
-    models.BlogTeaser = 
-      $resource('http://127.0.0.1:3300/api/blog_teaser/');
-    models.Project = 
-      $resource('http://127.0.0.1:3300/api/projects/:slug');
-    models.ProjectTeaser = 
-      $resource('http://127.0.0.1:3300/api/project_teaser/');
+    models.Blog           = $resource('/api/blogs/:slug');
+    models.BlogTeaser     = $resource('/api/blog_teaser/');
+    
+    models.Project        = $resource('/api/projects/:slug');
+    models.ProjectTeaser  = $resource('/api/project_teaser/');
 
     return models;
   }
