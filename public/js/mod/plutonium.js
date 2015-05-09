@@ -1,16 +1,24 @@
-/* global View, Showdown, shapeArray, markdownit */
+/* jshint node: true */
 
-var angular = angular || {};
+var angular = require('angular');
 
-angular.module('plutonium', ['ui.router', 'ngResource']);
-angular.module('plutonium');
+var Showdown = require('showdown');
+
+var shapes = require('./shapes');
+
+var shapeArray = require('./shape_array');
+
+angular.module('plutonium', [
+  require('angular-ui-router'),
+  require('angular-resource')
+]);
 
 var drawHexagon = (function $drawHexagon() {
   var drawn = false;
   var svg;
   return function(el) {
     if (!drawn) {
-      var v = View({ target: el });
+      var v = shapes.View({ target: el });
       shapeArray(v, { radius: 60, pad: -35, range: [3, 6]  });
       svg = el.children[0];
       drawn = true;
@@ -19,14 +27,6 @@ var drawHexagon = (function $drawHexagon() {
     }
   };
 })();
-
-angular.module('plutonium').filter('markdown', function() {
-  var md = markdownit();
-  return function(text) {
-    console.log(text);
-    return md.render(text);
-  };
-});
 
 angular.module('plutonium').directive('plHexagon', function() {
   return {
@@ -118,8 +118,6 @@ angular.module('plutonium').directive('plBlog', function() {
         } else {
           $scope.blogs = models.BlogTeaser.query();
         }
-
-        window.s = $scope;
       }
     ]
   };
@@ -310,10 +308,6 @@ angular.module('plutonium').config([
         templateUrl: 'view.404.html'
       })
     ;
-
-    console.log('asdfasdasasdasasd')
-
-    
 
     $urlRouterProvider.otherwise(function($injector, $location) {
       $injector.invoke(['$state', function($state) {

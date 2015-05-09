@@ -1,4 +1,7 @@
 /* jshint node:true */
+
+var d3 = require('d3');
+
 function toRadians(angle) {
   'use strict';
   return Math.PI * (angle / 180);
@@ -336,7 +339,6 @@ function View(params) {
         }
       })
     ;
-    //}
   };
   
   return view;
@@ -361,7 +363,7 @@ var hideFill = function $hideFill() {
       })
       .attr({
         'pointer-events': 'none'
-      });
+      })
   ;
 };
 
@@ -384,6 +386,11 @@ var showFill = function $showFill() {
       })
       .attr({
         'pointer-events': 'all'
-      });
+      })
   ;
-}
+};
+
+module.exports.Vertex = Vertex;
+module.exports.Edge = Edge;
+module.exports.Shape = Shape;
+module.exports.View = View;
