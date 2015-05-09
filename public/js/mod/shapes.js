@@ -2,6 +2,8 @@
 
 var d3 = require('d3');
 
+var mobile = require('./mobile');
+
 function toRadians(angle) {
   'use strict';
   return Math.PI * (angle / 180);
@@ -179,12 +181,29 @@ function View(params) {
   view.target = params.target || document.body;
   view.mouseoverEverywhere = !!params.mouseoverEverywhere;
 
-  view.bounds = view.target.getBoundingClientRect();
+
+  if (mobile) {
+    var dimens = Math.min(
+      Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
+      Math.max(document.documentElement.clientHeight, window.innerHeight || 0),
+      600
+    );
+    view.bounds = { width: dimens, height: dimens };
+  } else {
+    view.bounds = view.target.getBoundingClientRect();
+  }
   
   d3Svg = d3.select(view.target).append('svg')
       .attr({
         width: view.bounds.width,
         height: view.bounds.height
+      })
+      .style({
+        left: '50%',
+        top: '50%',
+        position: 'absolute',
+        'margin-left': view.bounds.width / -2,
+        'margin-top': view.bounds.height / -2
       })
   ;
   
