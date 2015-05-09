@@ -2,7 +2,7 @@
 
 var angular = require('angular');
 
-var Showdown = require('showdown');
+var marked = require('marked');
 
 var shapes = require('./shapes');
 
@@ -19,7 +19,7 @@ var drawHexagon = (function $drawHexagon() {
   return function(el) {
     if (!drawn) {
       var v = shapes.View({ target: el });
-      shapeArray(v, { radius: 60, pad: -35, range: [3, 6]  });
+      shapeArray({ view: v, radius: 60, pad: -35, range: [3, 6]  });
       svg = el.children[0];
       drawn = true;
     } else {
@@ -45,10 +45,9 @@ angular.module('plutonium').directive('plHexagon', function() {
 angular.module('plutonium').factory('markdown', [
   '$sce',
   function($sce) {
-    var converter = new Showdown.converter(); 
     return function(str) {
       if (str) {
-        return $sce.trustAsHtml(converter.makeHtml(str));
+        return $sce.trustAsHtml(marked(str));
       } else {
         return '';
       }

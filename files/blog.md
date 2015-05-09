@@ -8,27 +8,24 @@ The hexagonal animation on the homepage uses [D3.js](http://d3js.org/).  D3.js i
 
 To make the shapes, I coded a `Shape` object which has an array of Edge objects.  `Edge` objects each point to two vertices.  In order to make the actual geometric shape, the vertices of these `Edge` objects need to be placed.  To place the vertices, simple trigonometry is used.  Then the `Shape` object converts the array of vertices into a [path description format](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d).  A *path description* is the string of text which goes into the *d* attribute of an SVG path element.
 
-```
-<svg width="20" height="20">
-  <path d="M0,0 L 0,20 L 20,20 L 20,0 L 0,0"></path>
-</svg>
-```
+    <svg width="20" height="20">
+      <path d="M0,0 L 0,20 L 20,20 L 20,0 L 0,0"></path>
+    </svg>
+
 As an example, the above path would correspond to a square.  That cryptic *path description* attribute really just means:
-```
-Move to (0, 0)
-From there draw a line to (0, 20)
-From there draw a line to (20, 20)
-From there draw a line to (20, 0)
-From there draw a line to (0, 0)
-```
+
+    Move to (0, 0)
+    From there draw a line to (0, 20)
+    From there draw a line to (20, 20)
+    From there draw a line to (20, 0)
+    From there draw a line to (0, 0)
+
 
 D3 is used to render these `Shape` objects, to animate them, and to handle all of the mouse events.
 
 For the UI and the routing, [AngularJS](https://angularjs.org) and [Angular UI Router](https://github.com/angular-ui/ui-router) are used.  AngularJS is a library for creating 'front-end applications'.  I am using it to dynamically render templates in the browser.  This means that when you interact with any UI elements, such as the navigation bar links, the browser renders all transitions immediately and in real time, without fetching any templates from the server.
 
-On the backend, I'm using StrongLoop's [LoopBack](http://loopback.io/).  LoopBack is a [node.js](https://nodejs.org/) framework built on top of [express.js](http://expressjs.com/).  So far it's been pretty straightforward to get up and running with LoopBack.  LoopBack comes with a model generator which creates models pre-baked with a REST API.
-
-LoopBack is only used for data persistence, for example, to persist the data (like text) that goes into this blog.
+On the backend I'm using plain old [nginx](http://nginx.org/) to serve all of the static files, with an [express.js](http://expressjs.com) app to route all of the api requests.  Express is a [node.js](https://nodejs.org/) framework which seems to work fairly well for small projects.  So far it's been pretty straightforward to get up and running with the backend, fingers crossed that it stays that way!
 
 ### What to add?
 I've decided to deploy this website in its current state although it is lacking in some important features.  Namely, various web crawlers will likely have a difficult time indexing the content on this website, which will effect how well the website performs in search engines results.
@@ -39,4 +36,4 @@ I would choose to pre-render the templates because the load time of the page adv
 
 I also need to add a way to comment on blog posts or projects.
 
-Thank you for joining me on this commemorative *Hello World* blog post.  Now it's time to get back to work!
+Thanks for joining me on this first *Hello World* blog post.  Now it's time to get back to work!
