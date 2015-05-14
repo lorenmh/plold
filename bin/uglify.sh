@@ -1,2 +1,2 @@
 #!/bin/sh
-uglifyjs ../public/js/bundle/plutonium.js -o ../public/js/plutonium.min.js
+uglifyjs ../public/js/bundle/plutonium.js -c -m -o ../public/js/plutonium.min.js
