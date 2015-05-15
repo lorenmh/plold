@@ -1,2 +1,4 @@
 vars.js
 node_modules/
+*.swp
+*.swo
