@@ -1,8 +1,11 @@
 <!DOCTYPE html/>
 <meta charset="utf-8">
-<html>
+<html ng-app="plutonium">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<meta name="description" content="Informative blog articles about JavaScript, Python, web development, design, software development and tech." />
+
+<title>plutonium.io</title>
 
 <head>
   <link href='/public/css/styles.css' rel='stylesheet' type='text/css'>
@@ -28,25 +31,7 @@
   <script type="text/ng-template" id="dir.title.html">
     <div id="pl-title" title="plutonium.io" alt="plutonium.io">
       <a ui-sref="root.home">
-        <svg width="460" height="60">
-          <defs>
-            <clipPath id="logo-text">
-              <text x="230"
-                    y="40"
-                    text-anchor="middle">
-                plutonium.io
-              </text>
-            </clipPath>
-          </defs>
-
-          <image  xlink:href="/public/img/textbg.jpg"
-                  x="0"
-                  y="0"
-                  width="460"
-                  height="104"
-                  clip-path="url('#logo-text')" >
-          </image>
-        </svg>
+        <img src="/public/img/logo.png" />
       </a>
     </div>
   </script>

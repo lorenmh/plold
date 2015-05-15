@@ -20,7 +20,7 @@ var drawHexagon = (function $drawHexagon() {
   var svg;
   return function(el) {
     if (!drawn) {
-      var draw = function draw() {
+      var draw = function $draw() {
         var w, v;
         w = Math.max(
           document.documentElement.clientWidth, window.innerWidth || 0
@@ -31,7 +31,7 @@ var drawHexagon = (function $drawHexagon() {
           shapeArray({ view: v, radius: 100, pad: -60, range: [3, 6]  });
         } else {
           v = shapes.View({ target: el });
-          shapeArray({ view: v, radius: 80, pad: -50, range: [3, 6]  });
+          shapeArray({ view: v, radius: 60, pad: -35, range: [3, 6]  });
         }
       };
 
@@ -56,6 +56,7 @@ var drawHexagon = (function $drawHexagon() {
     }
   };
 })();
+
 
 angular.module('plutonium').directive('plHexagon', function() {
   return {
@@ -204,7 +205,12 @@ angular.module('plutonium').directive('plProject', function() {
           $scope.project = models.Project.get({
             slug: $stateParams.slug
           });
-          
+      
+          $scope.project.$promise.then(function(blog) {
+            if ($state.title === undefined) { $state.title = blog.title; }
+          });
+
+
           $scope.project.$promise.catch(function(e) {
             $state.go('root.404');
           });
@@ -214,7 +220,6 @@ angular.module('plutonium').directive('plProject', function() {
           $scope.projects = models.ProjectTeaser.query();
         }
 
-        window.s = $scope;
       }
     ]
   };
@@ -318,11 +323,12 @@ angular.module('plutonium').config([
       })
       .state('root.blog_teaser', {
         url: '/blog',
-        templateUrl: 'view.blog.html'
+        templateUrl: 'view.blog.html',
+        title: 'Blogs'
       })
       .state('root.blog', {
         url: '/blog/:slug',
-        templateUrl: 'view.blog.html'
+        templateUrl: 'view.blog.html',
       })
       .state('root.projects', {
         url: '/projects/:slug',
@@ -340,7 +346,6 @@ angular.module('plutonium').config([
     $urlRouterProvider.otherwise(function($injector, $location) {
       $injector.invoke(['$state', function($state) {
         $state.go('root.404');
-        console.log($location);
         $state.location = $location;
       }]);
     });

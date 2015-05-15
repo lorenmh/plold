@@ -20,7 +20,7 @@ var drawHexagon = (function $drawHexagon() {
   var svg;
   return function(el) {
     if (!drawn) {
-      var draw = function draw() {
+      function draw() {
         var w, v;
         w = Math.max(
           document.documentElement.clientWidth, window.innerWidth || 0
@@ -31,9 +31,9 @@ var drawHexagon = (function $drawHexagon() {
           shapeArray({ view: v, radius: 100, pad: -60, range: [3, 6]  });
         } else {
           v = shapes.View({ target: el });
-          shapeArray({ view: v, radius: 80, pad: -50, range: [3, 6]  });
+          shapeArray({ view: v, radius: 60, pad: -35, range: [3, 6]  });
         }
-      };
+      }
 
       draw();
 
@@ -42,16 +42,19 @@ var drawHexagon = (function $drawHexagon() {
 
       window.addEventListener('resize', function(e){
         if (el.hasChildNodes(svg)) {
+          console.log('a')
           el.removeChild(svg);
           draw();
           svg = el.children[0];
         } else {
+          console.log('b')
           svg = undefined;
           drawn = false;
         }
       });
 
     } else {
+      console.log('draw false')
       el.appendChild(svg);
     }
   };
@@ -241,8 +244,9 @@ angular.module('plutonium').directive('plTitle', function() {
     scope: false,
     templateUrl: 'dir.title.html',
     controller: [
-      '$scope',
-      function($scope) {
+      '$scope', '$state',
+      function($scope, $state) {
+        $scope.$state = $state;
       }
     ]
 
@@ -255,8 +259,8 @@ angular.module('plutonium').directive('plNav', function() {
     scope: false,
     templateUrl: 'dir.nav.html',
     controller: [
-      '$scope',
-      function($scope) {
+      '$scope', '$state',
+      function($scope, $state) {
       }
     ]
 
@@ -283,7 +287,7 @@ angular.module('plutonium').config([
   '$stateProvider', '$urlRouterProvider', '$locationProvider',
   function($stateProvider, $urlRouterProvider, $locationProvider) {
     // shit's broken in ie9 / ff
-    $locationProvider.html5Mode({enabled: true, requireBase: true});
+    // $locationProvider.html5Mode({enabled: true, requireBase: false});
 
     $urlRouterProvider.rule(function ($injector, $location) {
       var path, normalized;
