@@ -117,8 +117,8 @@ angular.module('plutonium').directive('plBlogItem', function() {
     scope: false,
     templateUrl: 'dir.blog-item.html',
     controller: [
-      '$scope', '$state', 'models', 'markdown',
-      function($scope, $state, models, markdown) {
+      '$scope', 'markdown',
+      function($scope, markdown) {
         $scope.markdown = markdown;
       }
     ]
@@ -131,17 +131,21 @@ angular.module('plutonium').directive('plBlog', function() {
     scope: false,
     templateUrl: 'dir.blog.html',
     controller: [
-      '$scope', '$state', '$stateParams', 'models',
-      function($scope, $state, $stateParams, models) {
+      '$scope', '$rootScope', '$state', '$stateParams', 'models',
+      function($scope, $rootScope, $state, $stateParams, models) {
         if ($stateParams.slug) {
+          
           $scope.blog = models.Blog.get({
             slug: $stateParams.slug
           });
-          
+      
+          $scope.blog.$promise.then(function(b) {
+            $rootScope.title = b.title;
+          });
+
           $scope.blog.$promise.catch(function(e) {
             $state.go('root.404');
           });
-
 
         } else {
           $scope.blogs = models.BlogTeaser.query();
@@ -184,8 +188,8 @@ angular.module('plutonium').directive('plProjectItem', function() {
     scope: false,
     templateUrl: 'dir.project-item.html',
     controller: [
-      '$scope', '$state', 'models', 'markdown',
-      function($scope, $state, models, markdown) {
+      '$scope', 'markdown',
+      function($scope, markdown) {
         $scope.markdown = markdown;
       }
     ]
@@ -198,13 +202,18 @@ angular.module('plutonium').directive('plProject', function() {
     scope: false,
     templateUrl: 'dir.project.html',
     controller: [
-      '$scope', '$state', '$stateParams', 'models',
-      function($scope, $state, $stateParams, models) {
+      '$scope', '$rootScope', '$state', '$stateParams', 'models',
+      function($scope, $rootScope, $state, $stateParams, models) {
         if ($stateParams.slug) {
+          
           $scope.project = models.Project.get({
             slug: $stateParams.slug
           });
-          
+         
+          $scope.project.$promise.then(function(p) {
+            $rootScope.title = p.title;
+          });
+
           $scope.project.$promise.catch(function(e) {
             $state.go('root.404');
           });
@@ -268,8 +277,12 @@ angular.module('plutonium').controller('PlCtrl', [
   function($scope, $rootScope, $state) {
     $scope.$state = $state;
     
+    window.foo = $state;
+
     $rootScope.$on('$stateChangeSuccess', function(e, toState, toParams) {
       $scope.location = $state.href(toState.name, toParams);
+      console.log(toState);
+      $rootScope.title = toState.title;
       if (!$scope.location) {
         $scope.location = window.location.href.toString().replace(
                             window.location.origin, ''
@@ -306,19 +319,23 @@ angular.module('plutonium').config([
     $stateProvider
       .state('root', {
         url: null,
-        templateUrl: 'view.root.html'
+        templateUrl: 'view.root.html',
+        title: 'Home'
       })
       .state('root.home-empty', {
         url: '',
-        templateUrl: 'view.home.html'
+        templateUrl: 'view.home.html',
+        title: 'Home'
       })
       .state('root.home', {
         url: '/',
-        templateUrl: 'view.home.html'
+        templateUrl: 'view.home.html',
+        title: 'Home'
       })
       .state('root.blog_teaser', {
         url: '/blog',
-        templateUrl: 'view.blog.html'
+        templateUrl: 'view.blog.html',
+        title: 'Blogs'
       })
       .state('root.blog', {
         url: '/blog/:slug',
@@ -330,10 +347,12 @@ angular.module('plutonium').config([
       })
       .state('root.projects_teaser', {
         url: '/projects',
-        templateUrl: 'view.projects.html'
+        templateUrl: 'view.projects.html',
+        title: 'Projects'
       })
       .state('root.404', {
-        templateUrl: 'view.404.html'
+        templateUrl: 'view.404.html',
+        title: '404'
       })
     ;
 
