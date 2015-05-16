@@ -21,7 +21,7 @@
     <div id="container">
       <pl-title></pl-title>
       <pl-nav></pl-nav>
-      <div class="location">{{ location }}</div>
+      <div ng-bind="location" class="location"></div>
       <ui-view></ui-view>
     </div>
   </script>
@@ -41,7 +41,7 @@
   <script type="text/ng-template" id="dir.blog-teaser.html">
     <div class="pl-blog-teaser">
       <a ui-sref="root.blog({ slug: blog.slug })">
-        <h1 class="title">{{ blog.title }}</h1>
+        <h1 ng-bind="blog.title" class="title"></h1>
       </a>
     </div>
   </script>
@@ -54,8 +54,8 @@
 
   <script type="text/ng-template" id="dir.blog-item.html">
     <div class="pl-blog-item">
-      <h1 class="title">{{ blog.title }}</h1>
-      <h4 class="date">{{ blog.date }}</h4>
+      <h1 class="title" ng-bind="blog.title"><h1>
+      <h4 class="date" ng-bind="blog.date"></h4>
       <div class="text" ng-bind-html="markdown(blog.text)">
       </div>
     </div>
@@ -70,7 +70,7 @@
     <div class="pl-project-teaser">
       
       <a ui-sref="root.project({ slug: project.slug })">
-        <h1 class="title">{{ project.title }}</h1>
+        <h1 class="title" ng-bind="project.title"></h1>
       </a>
     </div>
   </script>
@@ -83,8 +83,8 @@
 
   <script type="text/ng-template" id="dir.project-item.html">
     <div class="pl-project-item">
-      <h1 class="title">{{ project.title }}</h1>
-      <h4 class="date">{{ project.date }}</h4>
+      <h1 class="title" ng-bind="project.title"></h1>
+      <h4 class="date" ng-bind="project.date"></h4>
       <div class="text" ng-bind-html="markdown(project.text)">
       </div>
     </div>
